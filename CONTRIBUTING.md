@@ -10,7 +10,7 @@ npm run build          # no dependencies; needs Node 18+ and the `zip` CLI
 - **Chrome / Edge:** `chrome://extensions` (or `edge://extensions`) → Developer mode → *Load unpacked* → `dist/chrome`.
 - **Firefox:** `about:debugging#/runtime/this-firefox` → *Load Temporary Add-on* → `dist/firefox/manifest.json`.
 
-The source is plain JavaScript with no bundler. Edit files under `src/` (see the layout in the [README](README.md#project-layout)), rebuild, and reload the extension.
+The source is plain JavaScript with no bundler. Edit files under `src/` (see the layout in the [README](README.en.md#project-layout)), rebuild, and reload the extension.
 
 ## Guidelines
 - Keep it dependency-free and Manifest V3 compatible with both Chromium and Firefox (use the `chrome.*` namespace).
