@@ -9,5 +9,5 @@ jobs:
         with: { node-version: 20 }
       - run: npm run build
       - run: npx --yes web-ext lint --source-dir dist/firefox
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with: { name: packages, path: dist/*.zip }
