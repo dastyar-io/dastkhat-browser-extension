@@ -3,16 +3,17 @@ node_modules/
 dist/
 *.zip
 .env
-# Commercial fonts: local use only, never commit (see fonts/README.md)
-fonts/peyda/
-fonts/aria/
-fonts/dana/
-fonts/farhang/
-fonts/hamideh/
-fonts/iransansx/
-fonts/iranyekanx/
-fonts/morabba/
-fonts/ravi/
-fonts/azarmehr/
-fonts/azarmehr_fd/
+# Commercial fonts: local use only, never commit (see assets/fonts/README.md)
+assets/fonts/peyda/
+assets/fonts/aria/
+assets/fonts/dana/
+assets/fonts/farhang/
+assets/fonts/hamideh/
+assets/fonts/iransansx/
+assets/fonts/iranyekanx/
+assets/fonts/morabba/
+assets/fonts/ravi/
+assets/fonts/azarmehr/
+assets/fonts/azarmehr_fd/
 local-fonts/
+store/tools/screenshots/*.html

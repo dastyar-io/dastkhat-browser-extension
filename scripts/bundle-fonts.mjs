@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Bundles all Dastkhat fonts into ./fonts/ for offline Chrome extension use.
+ * Bundles all Dastkhat fonts into ./assets/fonts/ for offline Chrome extension use.
  * Re-run after adding fonts: node scripts/bundle-fonts.mjs
  */
 
@@ -13,7 +13,7 @@ import { execSync } from "node:child_process";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
-const FONTS_ROOT = path.join(ROOT, "fonts");
+const FONTS_ROOT = path.join(ROOT, "assets", "fonts");
 // Optional: folder holding commercial (non-redistributable) Persian fonts for LOCAL use only.
 // Set DASTKHAT_FONT_SRC to enable; those fonts are never included in public builds.
 const RESOURCE = process.env.DASTKHAT_FONT_SRC || "";

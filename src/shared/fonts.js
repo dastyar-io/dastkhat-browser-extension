@@ -1,7 +1,7 @@
 // Shared Persian font catalog, used by content.js and options.js.
-// Fonts are bundled locally under fonts/. Entries flagged `proprietary: true` are
+// Fonts are bundled locally under assets/fonts/ (flattened to fonts/ in the built package). Entries flagged `proprietary: true` are
 // commercial faces that are NOT redistributable; scripts/build.mjs strips them (and
-// their files) from every public/store build. See fonts/README.md.
+// their files) from every public/store build. See assets/fonts/README.md.
 const DASTKHAT_FONTS = {
   dastkhat_bar: {
     label: "Dastkhat Bar",

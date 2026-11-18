@@ -1,11 +1,14 @@
 {
   "name": "dastkhat",
   "version": "0.4.0",
-  "description": "Persian reading and writing helper browser extension: highlights, AI rewriting/translation, RTL and Persian font enhancement.",
+  "description": "Persian reading & writing helper for Chrome, Edge and Firefox: RTL, Persian fonts, highlights and AI rewrite/translate.",
   "private": true,
   "type": "module",
   "license": "MIT",
-  "repository": { "type": "git", "url": "git+https://github.com/dastyar-io/dastkhat-browser-extension.git" },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dastyar-io/dastkhat-browser-extension.git"
+  },
   "scripts": {
     "build": "node scripts/build.mjs all",
     "build:chrome": "node scripts/build.mjs chrome",
@@ -14,5 +17,23 @@
     "fonts": "node scripts/bundle-fonts.mjs",
     "lint:firefox": "npx web-ext lint --source-dir dist/firefox"
   },
-  "engines": { "node": ">=18" }
+  "engines": {
+    "node": ">=18"
+  },
+  "homepage": "https://github.com/dastyar-io/dastkhat-browser-extension#readme",
+  "bugs": {
+    "url": "https://github.com/dastyar-io/dastkhat-browser-extension/issues"
+  },
+  "keywords": [
+    "persian",
+    "farsi",
+    "rtl",
+    "browser-extension",
+    "chrome-extension",
+    "firefox-addon",
+    "manifest-v3",
+    "ai",
+    "translation",
+    "highlighter"
+  ]
 }

@@ -23,7 +23,7 @@ Source: https://github.com/dastyar-io/dastkhat-browser-extension
 
 ## Required assets (you must create)
 - Screenshots: 1280×800 (min 1, up to 5) · Small promo tile 440×280 (Chrome) · Marquee 1400×560 (optional)
-- Icon 128×128: already in `icons/`.
+- Icon 128×128: already in `assets/icons/`.
 
 ## Submission steps
 1. `npm run build`

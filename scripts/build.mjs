@@ -8,6 +8,7 @@
  * Unpacked copies live in dist/chrome, dist/edge, dist/firefox for "Load unpacked".
  *
  * Usage: node scripts/build.mjs [chrome|edge|firefox|all]
+ * Source lives in src/ (by feature) and assets/ (icons, fonts); the build flattens it.
  * Requires Node 18+ and the `zip` CLI. Non-redistributable (proprietary) fonts
  * flagged in fonts.js are always stripped.
  */
@@ -19,13 +20,22 @@ import { execFileSync } from "node:child_process";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DIST = path.join(ROOT, "dist");
-const manifest = JSON.parse(fs.readFileSync(path.join(ROOT, "manifest.json"), "utf8"));
+const SRC = path.join(ROOT, "src");
+const ASSETS = path.join(ROOT, "assets");
+const manifest = JSON.parse(fs.readFileSync(path.join(SRC, "manifest.json"), "utf8"));
 const VERSION = manifest.version;
-const FILES = ["background.js", "content.js", "content.css", "defaults.js", "fonts.js", "providers.js",
-  "options.html", "options.js", "popup.html", "popup.js"];
+// Source files (relative to src/). The built extension is flat: each file is copied to the package root,
+// so manifest.json, the HTML pages and the scripts keep simple relative paths.
+const FILES = [
+  "background/background.js",
+  "content/content.js", "content/content.css",
+  "shared/defaults.js", "shared/fonts.js", "shared/providers.js",
+  "options/options.html", "options/options.js",
+  "popup/popup.html", "popup/popup.js",
+];
 
 // Work out which font keys/dirs are proprietary by evaluating the catalog.
-const fontsSrc = fs.readFileSync(path.join(ROOT, "fonts.js"), "utf8");
+const fontsSrc = fs.readFileSync(path.join(SRC, "shared", "fonts.js"), "utf8");
 const catalog = vm.runInNewContext(fontsSrc + "\nDASTKHAT_FONTS", { chrome: {} });
 const strippedKeys = Object.keys(catalog).filter((k) => catalog[k].proprietary);
 const strippedDirs = new Set(strippedKeys.map((k) => catalog[k].css.split("/")[1]));
@@ -41,7 +51,7 @@ function stripFontsJs(src) {
 }
 
 function copyFonts(dest) {
-  const src = path.join(ROOT, "fonts");
+  const src = path.join(ASSETS, "fonts");
   for (const dir of fs.readdirSync(src, { withFileTypes: true })) {
     if (!dir.isDirectory() || strippedDirs.has(dir.name)) continue;
     fs.cpSync(path.join(src, dir.name), path.join(dest, "fonts", dir.name), {
@@ -73,9 +83,9 @@ function build(target) {
   const dir = path.join(DIST, target);
   fs.rmSync(dir, { recursive: true, force: true });
   fs.mkdirSync(dir, { recursive: true });
-  for (const f of FILES) fs.copyFileSync(path.join(ROOT, f), path.join(dir, f));
+  for (const f of FILES) fs.copyFileSync(path.join(SRC, f), path.join(dir, path.basename(f)));
   fs.writeFileSync(path.join(dir, "fonts.js"), stripFontsJs(fontsSrc));
-  fs.cpSync(path.join(ROOT, "icons"), path.join(dir, "icons"), { recursive: true, filter: (p) => !p.endsWith(".DS_Store") });
+  fs.cpSync(path.join(ASSETS, "icons"), path.join(dir, "icons"), { recursive: true, filter: (p) => !p.endsWith(".DS_Store") });
   copyFonts(dir);
   fs.writeFileSync(path.join(dir, "manifest.json"), JSON.stringify(targetManifest(target), null, 2) + "\n");
   const zip = path.join(DIST, `dastkhat-${VERSION}-${target}.zip`);
@@ -87,7 +97,7 @@ function build(target) {
 function buildSource() {
   const zip = path.join(DIST, `dastkhat-${VERSION}-source.zip`);
   fs.rmSync(zip, { force: true });
-  const skip = ["dist/*", "node_modules/*", ".git/*", "*.DS_Store", "local-fonts/*", ...[...strippedDirs].map((d) => `fonts/${d}/*`)];
+  const skip = ["dist/*", "node_modules/*", ".git/*", "*.DS_Store", "local-fonts/*", ...[...strippedDirs].map((d) => `assets/fonts/${d}/*`)];
   execFileSync("zip", ["-r", "-X", "-q", zip, ".", "-x", ...skip], { cwd: ROOT });
   console.log(`✓ ${path.relative(ROOT, zip)}`);
 }
