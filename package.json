@@ -1,0 +1,18 @@
+{
+  "name": "dastkhat",
+  "version": "0.4.0",
+  "description": "Persian reading and writing helper browser extension: highlights, AI rewriting/translation, RTL and Persian font enhancement.",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "repository": { "type": "git", "url": "git+https://github.com/dastyar-io/dastkhat-browser-extension.git" },
+  "scripts": {
+    "build": "node scripts/build.mjs all",
+    "build:chrome": "node scripts/build.mjs chrome",
+    "build:edge": "node scripts/build.mjs edge",
+    "build:firefox": "node scripts/build.mjs firefox",
+    "fonts": "node scripts/bundle-fonts.mjs",
+    "lint:firefox": "npx web-ext lint --source-dir dist/firefox"
+  },
+  "engines": { "node": ">=18" }
+}

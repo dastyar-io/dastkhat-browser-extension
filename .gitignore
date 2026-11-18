@@ -1,0 +1,18 @@
+.DS_Store
+node_modules/
+dist/
+*.zip
+.env
+# Commercial fonts: local use only, never commit (see fonts/README.md)
+fonts/peyda/
+fonts/aria/
+fonts/dana/
+fonts/farhang/
+fonts/hamideh/
+fonts/iransansx/
+fonts/iranyekanx/
+fonts/morabba/
+fonts/ravi/
+fonts/azarmehr/
+fonts/azarmehr_fd/
+local-fonts/

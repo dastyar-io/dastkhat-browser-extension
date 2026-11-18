@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<title>دست‌خط</title>
+<link rel="stylesheet" href="fonts/dastkhat_bar/font.css" />
+<link rel="stylesheet" href="fonts/vazirmatn/font.css" />
+<style>
+  :root {
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --hover: #f6f7fa;
+    --soft: #f1f2f6;
+    --border: #e4e7ee;
+    --text: #15131f;
+    --muted: #666b7d;
+    --accent: #e34234;
+    --accent-hover: #c8372a;
+    --accent-soft: #fbd9d4;
+    --accent-soft-text: #5b1a13;
+    --danger-bg: #fef2f2;
+    --focus: #e34234;
+  }
+  :root[data-theme="dark"] {
+    --bg: #131110;
+    --surface: #1b1816;
+    --hover: #231f1c;
+    --soft: #2b2622;
+    --border: #34302b;
+    --text: #f2f0fa;
+    --muted: #a09db8;
+    --accent-hover: #ee5a4c;
+    --accent-soft: #4a201b;
+    --accent-soft-text: #ffe4e0;
+    --danger-bg: #3a1c24;
+    --focus: #ff7b6e;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  body {
+    width: 340px; max-height: 520px; overflow-y: auto; margin: 0;
+    background: var(--bg); color: var(--text);
+    font-family: "Dastkhat Bar FaNum", "Vazirmatn", -apple-system, BlinkMacSystemFont, "Segoe UI", Tahoma, sans-serif;
+    font-size: 13px; line-height: 1.7;
+  }
+  svg { width: 18px; height: 18px; flex: none; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  button { font: inherit; }
+
+  /* Header */
+  header { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-block-end: 1px solid var(--border); }
+  header .logo { width: 28px; height: 28px; }
+  header .name { font-weight: 800; font-size: 16px; }
+  .icon-btn {
+    all: unset; cursor: pointer; margin-inline-start: auto; width: 34px; height: 34px;
+    display: grid; place-items: center; border-radius: 10px; color: var(--muted);
+  }
+  .icon-btn:hover { background: var(--hover); color: var(--text); }
+  .icon-btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+
+  main { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 12px; }
+
+  /* Status card */
+  .status-card {
+    background: var(--accent-soft); color: var(--accent-soft-text);
+    border-radius: 14px; padding: 14px 16px; display: flex; align-items: center; gap: 12px;
+  }
+  .status-card .txt { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+  .status-card b { font-size: 14px; font-weight: 800; }
+  .status-card small { opacity: .8; font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; direction: ltr; text-align: start; }
+  .status-card small.fa { direction: rtl; }
+  .switch { position: relative; width: 44px; height: 26px; flex: none; }
+  .switch input { opacity: 0; width: 100%; height: 100%; margin: 0; position: absolute; inset: 0; cursor: pointer; z-index: 1; }
+  .slider { position: absolute; inset: 0; background: rgba(0,0,0,.22); border-radius: 26px; transition: .15s; }
+  .slider::before {
+    content: ""; position: absolute; width: 20px; height: 20px; top: 3px; inset-inline-start: 3px;
+    background: #fff; border-radius: 50%; transition: .15s; box-shadow: 0 1px 3px rgba(0,0,0,.3);
+  }
+  .switch input:checked + .slider { background: var(--accent); }
+  .switch input:checked + .slider::before { transform: translateX(-18px); }
+  .switch input:focus-visible + .slider { outline: 2px solid var(--focus); outline-offset: 2px; }
+  .switch input:disabled { cursor: not-allowed; }
+  .switch input:disabled + .slider { opacity: .45; }
+
+  /* AI row */
+    all: unset; cursor: pointer; display: flex; align-items: center; gap: 12px;
+    border: 1px solid var(--border); border-radius: 12px; padding: 10px 14px; background: var(--surface);
+  }
+
+  /* Highlights */
+  .section-head { display: flex; align-items: center; gap: 8px; margin-block-start: 4px; }
+  .section-head h2 { margin: 0; font-size: 14px; font-weight: 800; }
+  .count { background: var(--soft); color: var(--muted); border-radius: 999px; padding: 0 9px; font-size: 12px; font-weight: 600; }
+  .clear-btn {
+    all: unset; cursor: pointer; margin-inline-start: auto; padding: 4px 12px; border-radius: 8px;
+    background: var(--soft); font-size: 12px; font-weight: 600;
+  }
+  .clear-btn:hover { background: var(--danger-bg); color: var(--accent); }
+  .clear-btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+  .clear-btn[hidden] { display: none; }
+  #list { display: flex; flex-direction: column; gap: 8px; max-height: 240px; overflow-y: auto; }
+  .item {
+    display: flex; align-items: flex-start; gap: 10px; border: 1px solid var(--border);
+    border-radius: 12px; padding: 10px 12px; background: var(--surface); line-height: 1.7; word-break: break-word;
+  }
+  .item::before { content: ""; width: 4px; align-self: stretch; border-radius: 4px; background: var(--hl, #ffe066); flex: none; }
+  .item .t { flex: 1; min-width: 0; }
+  .item button {
+    all: unset; cursor: pointer; color: var(--muted); width: 26px; height: 26px; display: grid; place-items: center;
+    border-radius: 8px; flex: none;
+  }
+  .item button:hover { color: var(--accent); background: var(--danger-bg); }
+  .item button:focus-visible { outline: 2px solid var(--focus); }
+  .empty { color: var(--muted); text-align: center; padding: 22px 0 8px; }
+  .empty svg { width: 34px; height: 34px; margin-block-end: 6px; opacity: .7; }
+  .empty p { margin: 0; }
+</style>
+</head>
+<body>
+  <header>
+    <img src="icons/logo.svg" alt="" class="logo" />
+    <span class="name">دست‌خط</span>
+    <button class="icon-btn" id="settingsLink" title="تنظیمات" aria-label="تنظیمات">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+    </button>
+  </header>
+
+  <main>
+    <div class="status-card">
+      <div class="txt">
+        <b>حالت فارسی در این صفحه</b>
+        <small id="siteName" class="fa">در حال بررسی…</small>
+      </div>
+      <label class="switch" title="روشن/خاموش کردن حالت فارسی">
+        <input type="checkbox" id="faSwitch" aria-label="حالت فارسی در این صفحه" />
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="section-head">
+      <h2>هایلایت‌ها</h2>
+      <span class="count" id="count">۰</span>
+      <button class="clear-btn" id="clearBtn" hidden>پاک‌کردن صفحه</button>
+    </div>
+    <div id="list"></div>
+  </main>
+
+  <script src="providers.js"></script>
+  <script src="defaults.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
